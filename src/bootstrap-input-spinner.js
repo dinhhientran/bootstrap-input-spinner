@@ -4,7 +4,18 @@
  * License: MIT, see file 'LICENSE'
  */
 
-;(function ($) {
+;(function(factory){
+    if (typeof define === "function" && define.amd) {
+        // AMD. Register as an anonymous module
+        define(["jquery"], factory);
+    } else if (typeof module === "object" && module.exports) {
+        // Node/CommonJS
+        factory(require("jquery"));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     "use strict"
 
     var triggerKeyPressed = false
@@ -34,7 +45,7 @@
             decrementButton: "<strong>&minus;</strong>", // button text
             incrementButton: "<strong>&plus;</strong>", // ..
             groupClass: "", // css class of the resulting input-group
-            buttonsClass: "btn-outline-secondary",
+            buttonsClass: "btn-sm btn-outline-secondary",
             buttonsWidth: "2.5rem",
             textAlign: "center",
             autoDelay: 500, // ms holding before auto value change
@@ -51,7 +62,7 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input type="text" inputmode="decimal" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
+            '<input type="text" inputmode="decimal" style="text-align: ' + config.textAlign + '" class="form-control-sm"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
@@ -251,7 +262,7 @@
                 }
                 var inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
                 $inputGroup.prop("class", "input-group " + groupClass + " " + config.groupClass)
-                $input.prop("class", "form-control " + inputClass)
+                $input.prop("class", "form-control-sm " + inputClass)
 
                 // update the main attributes
                 min = parseFloat($original.prop("min")) || 0
@@ -320,4 +331,4 @@
         })
     }
 
-}(jQuery))
+}))
